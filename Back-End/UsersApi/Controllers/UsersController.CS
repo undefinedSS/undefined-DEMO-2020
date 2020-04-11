@@ -2,19 +2,20 @@ using System;
 using Microsoft.AspNetCore.Mvc;
 using UsersApi.Data.Entitys;
 using UsersApi.Models;
+using UsersApi.Data.Entitys.Response;
 
-namespace Usersapi.Controllers
+namespace UsersApi.Controllers
 {
-    [Apicontroller]
-    [Route ("/Controller/")]
+    [ApiController]
+    [Route ("[controller]")]
     public class UsersController : ControllerBase
     {
-        [httpGet]
+        [HttpGet]
         [Route("Login")]
-        public ActionResult<Users> Login (string UserName, string Pass)
+        public ActionResult<LoginResponse> Login (string userName, string pass)
         {
-            var UsersModel = new UsersModel();
-            return UsersModel.Login (UserName, Pass);
+            var usersModel = new UsersModel();
+            return usersModel.Login (userName, pass);
         }
     }
 }

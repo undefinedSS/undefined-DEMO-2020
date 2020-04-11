@@ -3,32 +3,37 @@ using System.Data.Common;
 using System.Linq;
 using UsersApi.Data.Context;
 using UsersApi.Data.Entitys;
+using UsersApi.Data.Entitys.Response;
 
 namespace UsersApi.Models
 {
-    public class UsersModels
+    public class UsersModel
     {
-        public string Login (string UserName, string Pass)
+        public LoginResponse Login (string userName, string pass)
         {
             try
             {
                 using (undefinedDEMO2020Context context = new undefinedDEMO2020Context())
                 {
-                    var Query = from x in context.Users where (x => x.UserName == UserName && x.Pass == Pass)
-                                join y in context.UsersRoles on x.id equals y.Roleid
-                                join z in context.Permissions on y.Roleid equals z.Moduleid
-                                select new LoginResponse
-                                {
-                                    User = x.UserName,
-                                    ModulesAllowed = z.Moduleid
-                                };
-                    return Query.toList();
+                    var Query = context.Users.FirstOrDefault(x => x.UserName == userName && x.Pass == pass);
+                                // join y in context.UsersRoles on x.id equals y.Roleid
+                                // join z in context.Permissions on y.Roleid equals z.Moduleid
+                                // select new LoginResponse
+                                // {
+                                //     User = x.UserName,
+                                //     ModulesAllowed = z.Moduleid
+                                // };
+                                Console.WriteLine(Query.Id.ToString());
+
                 }
+                return new LoginResponse();
             }
-            catch (Exception.ex)
+            catch (Exception ex)
             {
-                return x.message;
+                Console.WriteLine(ex.Message);
+                return new LoginResponse();
             }
         }
+
     }
 }
