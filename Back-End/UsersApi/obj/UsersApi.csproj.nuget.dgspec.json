@@ -1,25 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Undefined\\UsersApi\\UsersApi.csproj": {}
+    "C:\\Users\\Ian Fer\\Documents\\GitHub\\undefined-DEMO-2020\\Back-End\\UsersApi\\UsersApi.csproj": {}
   },
   "projects": {
-    "E:\\Undefined\\UsersApi\\UsersApi.csproj": {
+    "C:\\Users\\Ian Fer\\Documents\\GitHub\\undefined-DEMO-2020\\Back-End\\UsersApi\\UsersApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Undefined\\UsersApi\\UsersApi.csproj",
+        "projectUniqueName": "C:\\Users\\Ian Fer\\Documents\\GitHub\\undefined-DEMO-2020\\Back-End\\UsersApi\\UsersApi.csproj",
         "projectName": "UsersApi",
-        "projectPath": "E:\\Undefined\\UsersApi\\UsersApi.csproj",
-        "packagesPath": "C:\\Users\\tomia\\.nuget\\packages\\",
-        "outputPath": "E:\\Undefined\\UsersApi\\obj\\",
+        "projectPath": "C:\\Users\\Ian Fer\\Documents\\GitHub\\undefined-DEMO-2020\\Back-End\\UsersApi\\UsersApi.csproj",
+        "packagesPath": "C:\\Users\\Ian Fer\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Ian Fer\\Documents\\GitHub\\undefined-DEMO-2020\\Back-End\\UsersApi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\tomia\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\Ian Fer\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -79,7 +78,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
         }
       }
     }
