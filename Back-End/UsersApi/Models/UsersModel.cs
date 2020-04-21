@@ -1,9 +1,10 @@
 using System;
-using System.Data.Common;
 using System.Linq;
 using UsersApi.Data.Context;
 using UsersApi.Data.Entitys;
 using UsersApi.Data.Entitys.Response;
+using System.Data;
+using System.Collections.Generic;
 
 namespace UsersApi.Models
 {
@@ -13,20 +14,45 @@ namespace UsersApi.Models
         {
             try
             {
-                using (undefinedDEMO2020Context context = new undefinedDEMO2020Context())
+                undefinedDEMO2020Context context = new undefinedDEMO2020Context();
+                var query = from u in context.Users
+                            where u.UserName == userName && u.Pass == pass
+                            join ur in context.UsersRoles on u.Id equals ur.UserId
+                            join p in context.Permissions on ur.RoleId equals p.RoleId or u.id equals p.UserId 
+                                select new 
+                                {
+                                    User = new Users
+                                    {
+                                        Id = u.Id,
+                                        UserName = u.UserName,
+                                        Pass = u.Pass,
+                                        IdPerson = u.IdPerson,
+                                        Type = u.Type,
+                                    },
+                                    ModulesAllowed = p.ModuleId,
+                                    SubModulesAllowed = p.SubModuleId,
+                                };
+                LoginResponse loginResponse = new LoginResponse();
+                if(query !=null)
                 {
-                    var Query = context.Users.FirstOrDefault(x => x.UserName == userName && x.Pass == pass);
-                                // join y in context.UsersRoles on x.id equals y.Roleid
-                                // join z in context.Permissions on y.Roleid equals z.Moduleid
-                                // select new LoginResponse
-                                // {
-                                //     User = x.UserName,
-                                //     ModulesAllowed = z.Moduleid
-                                // };
-                                Console.WriteLine(Query.Id.ToString());
-
+                    List<int> modulostmp = new List<int>();
+                    List<int> submodulostmp = new List<int>();
+                    foreach (var item in query)
+                    {
+                        loginResponse.User=item.User;
+                        if (item.ModulesAllowed != null)
+                        {
+                            modulostmp.Add(item.ModulesAllowed.Value);
+                        }
+                        if (item.SubModulesAllowed != null)
+                        {
+                            submodulostmp.Add(item.SubModulesAllowed.Value);
+                        }
+                    }
+                loginResponse.ModulesAllowed = modulostmp;
+                loginResponse.SubModulesAllowed = submodulostmp;        
                 }
-                return new LoginResponse();
+                return loginResponse;
             }
             catch (Exception ex)
             {
@@ -34,6 +60,5 @@ namespace UsersApi.Models
                 return new LoginResponse();
             }
         }
-
     }
 }
