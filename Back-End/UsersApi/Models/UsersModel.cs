@@ -10,15 +10,15 @@ namespace UsersApi.Models
 {
     public class UsersModel
     {
+        undefinedDEMO2020Context context = new undefinedDEMO2020Context();
         public LoginResponse Login (string userName, string pass)
         {
             try
             {
-                undefinedDEMO2020Context context = new undefinedDEMO2020Context();
                 var query = from u in context.Users
                             where u.UserName == userName && u.Pass == pass
                             join ur in context.UsersRoles on u.Id equals ur.UserId
-                            join p in context.Permissions on ur.RoleId equals p.RoleId //|| u.Id equals p.UserId
+                            join p in context.Permissions on ur.RoleId equals p.RoleId 
                                 select new 
                                 {
                                     User = new Users
@@ -61,11 +61,12 @@ namespace UsersApi.Models
             }
         }
 
-        public string Create (string userName, string pass, int idPerson, int type, string name, string surname, int age, string address, string email, int phone, string identification)
+        public string Create (string userName, string pass, int id, int type)
         {
             try
             {
-                undefinedDEMO2020Context context = new undefinedDEMO2020Context();
+                Persons personExist = context.Persons.Find(id);
+                int idPerson = personExist.Id;
                 Users user = new Users()
                 {
                     UserName = userName,
@@ -73,18 +74,7 @@ namespace UsersApi.Models
                     IdPerson = idPerson,
                     Type = type,
                 };
-                Persons person = new Persons()
-                {
-                    Name = name,
-                    Surname = surname,
-                    Age = age,
-                    Address = address, 
-                    Email = email,         
-                    Phone = phone,         
-                    Identification = identification,
-                };
                 context.Users.Add(user);
-                context.Persons.Add(person);
                 context.SaveChanges();
                 return "";
             }
@@ -95,15 +85,12 @@ namespace UsersApi.Models
             }
         }
 
-        public string Delete (int idUser, int idPerson)
+        public string Delete (int id)
         {
             try
             {
-                undefinedDEMO2020Context context = new undefinedDEMO2020Context();
-                Users userDelete = context.Users.Find(idUser);
-                Persons personDelete = context.Persons.Find(idPerson);
+                Users userDelete = context.Users.Find(id);
                 context.Users.Remove(userDelete);
-                context.Persons.Remove(personDelete);
                 context.SaveChanges();
                 return "";
             }
@@ -114,31 +101,16 @@ namespace UsersApi.Models
             }
         }
 
-        public string Update (int idUser, string userName, string pass, int idPerson, int type, string name, string surname, int age, string address, string email, int phone, string identification)
+        public string Update (int id, string userName, string pass, int idPerson, int type)
         {
             try
             {
-            undefinedDEMO2020Context context = new undefinedDEMO2020Context();
-            Users oldUser;
-            Persons oldPerson;
-            oldUser = context.Users.Where(u => u.Id == idUser).FirstOrDefault();
-            oldPerson = context.Persons.Where(u => u.Id == idPerson).FirstOrDefault();
+            Users oldUser = context.Users.Find(id);
             if (oldUser !=null)
             {
                 oldUser.UserName = userName;
                 oldUser.Pass = pass;
                 oldUser.Type = type;
-                context.SaveChanges();
-            }
-            if (oldPerson !=null)
-            {
-                oldPerson.Name = name;
-                oldPerson.Surname = surname;
-                oldPerson.Age = age;
-                oldPerson.Address = address;
-                oldPerson.Email = email;
-                oldPerson.Phone = phone;
-                oldPerson.Identification = identification;
                 context.SaveChanges();
             }
             return "";

@@ -1,6 +1,4 @@
-using System;
 using Microsoft.AspNetCore.Mvc;
-using UsersApi.Data.Entitys;
 using UsersApi.Models;
 using UsersApi.Data.Entitys.Response;
 
@@ -18,28 +16,28 @@ namespace UsersApi.Controllers
             return usersModel.Login (userName, pass);
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("Create")]
-        public ActionResult<string> Create (string userName, string pass, int idPerson, int type, string name, string surname, int age, string address, string email, int phone, string identification)
+        public ActionResult<string> Create (string userName, string pass, int id, int type)
         {
             var usersModel = new UsersModel();
-            return usersModel.Create (userName, pass, idPerson, type, name, surname, age, address, email, phone, identification);
+            return usersModel.Create (userName, pass, id, type);
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("Delete")]
-        public ActionResult<string> Delete (int idUser, int idPerson)
+        public ActionResult<string> Delete (int id)
         { 
             var userModel = new UsersModel();
-            return userModel.Delete (idUser, idPerson);
+            return userModel.Delete (id);
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("Update")]
-        public ActionResult<string> Update (int idUser, string userName, string pass, int idPerson, int type, string name, string surname, int age, string address, string email, int phone, string identification)
+        public ActionResult<string> Update (int id, string userName, string pass, int idPerson, int type)
         {
             var usersModel = new UsersModel();
-            return usersModel.Update (idUser, userName, pass, idPerson, type, name, surname, age, address, email, phone, identification);
+            return usersModel.Update (id, userName, pass, idPerson, type);
         }
     }
 }
